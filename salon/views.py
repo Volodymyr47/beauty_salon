@@ -1,28 +1,58 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
+from salon.models import Service, Specialist
+from datetime import datetime, timedelta
 
+
+TIMEDELTA = timedelta(days=7)
 
 def home(request):
     return render(request, 'salon/home.html')
 
 
 def services(request):
-    return render(request, 'salon/services.html')
+    current_time = datetime.today()
+    required_period = current_time + TIMEDELTA
+    all_services = {}
 
+    try:
+        all_services = Service.objects.filter(specialist__status=2,
+                                              specialist__workschedule__end_time__range=(current_time, required_period)
+                                              ).distinct()
+    except Exception as err:
+        print(err)
 
-#
-# class SpecificService(DetailView):
-#     model = Service
-#     template_name = 'salon/service.html'
-#     context_object_name = Service.name
+    return render(request, 'salon/services.html', {'services': all_services})
 
 
 def service(request, service_name):
-    return render(request, 'salon/service.html', {'title': service_name})
+    service_id = None
+    service_details = {}
+    available_specialists = {}
+
+    try:
+        service_details = Service.objects.filter(name=service_name).all()
+        for detail in service_details:
+            service_id = detail.id
+        available_specialists = Specialist.objects.filter(services__id=service_id)
+    except Exception as err:
+        print(err)
+
+    return render(request, 'salon/service.html', {'service_details': service_details,
+                                                  'specialists': available_specialists})
 
 
 def specialists(request):
-    return render(request, 'salon/specialists.html')
+    current_time = datetime.today()
+    required_period = current_time + TIMEDELTA
+    available_specialists = {}
+
+    try:
+        available_specialists = Specialist.objects.filter(status=2,
+                                                          workschedule__end_time__range=(current_time, required_period))
+    except Exception as err:
+        print(err)
+
+    return render(request, 'salon/specialists.html', {'specialists': available_specialists})
 
 
 def specialist(request, specialist_id):

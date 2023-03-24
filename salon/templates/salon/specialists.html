@@ -4,6 +4,8 @@
 {% block content %}
 <h1>Our specialists</h1>
 
-<h4>Maryna</h4>
+{% for specialist in specialists %}
+    <p style="font-size: 30px"><a href="{{specialist.name}}/">{{specialist.name}}</a></p>
+{% endfor %}
 
 {% endblock %}

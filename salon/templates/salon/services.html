@@ -2,8 +2,11 @@
 {% load static %}
 {% block title %}Our services{% endblock %}
 {% block content %}
-<h1>Our services page</h1>
 
-<h4><a href="haircut/">Hair cut</a></h4>
+<h1>We present the following services to your attention</h1>
+
+{% for service in services %}
+    <p style="font-size: 30px"><a href="{{service.name}}/">{{service.name}}</a></p>
+{% endfor %}
 
 {% endblock %}
