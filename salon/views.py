@@ -49,13 +49,12 @@ def service(request, service_name):
 
 
 def specialists(request):
-    current_time = datetime.today()
-    required_period = current_time + TIMEDELTA
     available_specialists = {}
 
     try:
         available_specialists = Specialist.objects.filter(status=2,
-                                                          workschedule__end_time__range=(current_time, required_period))
+                                                          # workschedule__end_time__range=(CURRENT_TIME, REQUIRED_PERIOD)
+                                                          ).distinct()
     except Exception as err:
         print(err)
 
@@ -63,7 +62,17 @@ def specialists(request):
 
 
 def specialist(request, specialist_id):
-    return render(request, 'salon/specialists.html', {'title': specialist_id})
+    specialist_detail = {}
+
+    try:
+        specialist_detail = Specialist.objects.filter(status=2,
+                                                      id=specialist_id
+                                                      ).first()
+
+    except Exception as err:
+        print(err)
+
+    return render(request, 'salon/specialist.html', {'specialist': specialist_detail})
 
 
 def booking(request, user_id, service_name, booking_time):
