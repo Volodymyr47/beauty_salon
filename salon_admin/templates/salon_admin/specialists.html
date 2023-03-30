@@ -5,4 +5,33 @@
 {% endblock %}
 {% block content %}
 <h1>{{title}}</h1>
+{% for specialist in specialists %}
+    <div>
+        <br>Name: <a href="{{specialist.id}}/">{{ specialist.name }}</a><br>
+       Rank: {{ specialist.rank }}
+       Phone: {{ specialist.phone }}
+       Status: {{ specialist.status }}<br>
+       Services:
+        {% for current_service in specialist.services.all %}
+            {{ current_service.name }}
+        {% endfor %}
+    </div>
+{% endfor %}
+<br>
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="rank">Rank: </label>
+        <select name="rank" id="rank" required>
+            <option value="1">Rank 1</option>
+            <option value="2">Rank 2</option>
+        </select><br>
+        <label for="phone">Phone: </label>
+        <input type="tel" id="phone" pattern="+[0-9]{12}" name="phone" value="+38" required><br>
+    </div>
+    <input type="submit" value="Add specialist">
+
+</form>
 {% endblock %}

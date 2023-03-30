@@ -1,8 +1,74 @@
 {% extends 'salon_admin/admbase.html' %}
 {% load static %}
 {% block title %}
-{{title}}
+ Specialist {{specialist.name}}
 {% endblock %}
 {% block content %}
-<h1>{{title}}</h1>
+<h1>Data of {{specialist.name}}</h1>
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ specialist.name }}" required><br>
+        <label for="rank">Rank:</label>
+        <select name="rank" id="rank" required>
+            <option value="{{specialist.rank}}" selected hidden>Rank {{specialist.rank}}</option>
+            <option value="1">Rank 1</option>
+            <option value="2">Rank 2</option>
+        </select><br>
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" pattern="+[0-9]{12}" name="phone" value="{{ specialist.phone }}" required><br>
+        <label for="status">Status:</label>
+        <select name="status" id="status" required>
+            <option value="{{specialist.status}}" selected hidden>
+                {% if specialist.status == 1 %}
+                    Day off
+                {% elif specialist.status == 2 %}
+                    At Work
+                {% elif specialist.status == 3 %}
+                    Sickness
+                {% else %}
+                    Fired
+                {% endif %}
+            </option>
+            <option value="1">Day off</option>
+            <option value="2">At Work</option>
+            <option value="3">Sickness</option>
+            <option value="9">Fired</option>
+        </select><br>
+        </div><br>
+        <div>
+            <h5>Services</h5>
+
+            {% for service in services %}
+                    <dd>
+                        <label for="checked_{{service.id}}"> - {{service.name}}</label>
+                        {% if service.id in checked_ids %}
+                            <input type="checkbox" id="checked_{{service.id}}" checked
+                                   name="service_{{service.id}}"
+                                   value="{{service.id}}">
+                        {% else %}
+                            <input type="checkbox" id="{{service.id}}"
+                                   name="service_{{service.id}}"
+                                   value="{{service.id}}">
+                        {% endif %}
+                    </dd>
+            {% endfor %}
+        </div>
+        <div>
+            <h5>Work schedule</h5>
+            {% for schedule in schedules %}
+               {{schedule.begin_time}} - {{schedule.end_time}}<br>
+            {% endfor %}
+
+            <br><h5>New schedule</h5>
+            <label for="begin">Begin: </label>
+            <input type="datetime-local" id="begin" name="begin">
+            <label for="end">End: </label>
+            <input type="datetime-local" id="end" name="end">
+        </div>
+    <input type="submit" value="Save data">
+    <a href="../">Cancel</a>
+</form>
+
 {% endblock %}

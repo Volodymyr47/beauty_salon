@@ -5,4 +5,20 @@
 {% endblock %}
 {% block content %}
 <h1>{{title}}</h1>
+{% for service in services %}
+    <p>Name: <a href="{{service.id}}/">{{ service.name }}</a>
+    Price:{{ service.price }}
+    Duration: {{ service.duration }}</p>
+{% endfor %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <span>Name: </span><input type="text" name="name" required><br>
+        <span>Price: </span><input type="number" name="price" required><br>
+        <span>Duration: </span><input type="number" name="duration" required>
+    </div>
+    <input type="submit" value="Add service">
+</form>
+
 {% endblock %}

@@ -5,4 +5,16 @@
 {% endblock %}
 {% block content %}
 <h1>{{title}}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <span>Name: </span><input type="text" name="name" value="{{ service.name }}" required><br>
+        <span>Price: </span><input type="number" name="price" value="{{ service.price }}" required><br>
+        <span>Duration: </span><input type="number" name="duration" value="{{ service.duration }}" required>
+    </div>
+    <input type="submit" value="Save service">
+    <a href="../">Cancel</a>
+</form>
+
 {% endblock %}

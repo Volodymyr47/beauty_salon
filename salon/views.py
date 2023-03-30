@@ -26,7 +26,7 @@ def services(request):
     return render(request, 'salon/services.html', {'services': all_services})
 
 
-def service(request, service_name):
+def one_service(request, service_name):
     service_id = None
     service_details = {}
     available_specialists = {}
@@ -40,7 +40,6 @@ def service(request, service_name):
                                       services__id=service_id,
                                       workschedule__end_time__range=(CURRENT_TIME, REQUIRED_PERIOD)
                                       ).distinct().order_by('name')
-        print(available_specialists.query)
     except Exception as err:
         print(err)
 
@@ -61,7 +60,7 @@ def specialists(request):
     return render(request, 'salon/specialists.html', {'specialists': available_specialists})
 
 
-def specialist(request, specialist_id):
+def one_specialist(request, specialist_id):
     specialist_detail = {}
 
     try:

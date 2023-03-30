@@ -20,9 +20,9 @@ from salon import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('services/', views.services, name='services'),
-    path('services/<str:service_name>/', views.service, name='service'),
+    path('services/<str:service_name>/', views.one_service, name='service'),
     path('specialists/', views.specialists, name='specialists'),
-    path('specialists/<int:specialist_id>/', views.specialist, name='specialist'),
+    path('specialists/<int:specialist_id>/', views.one_specialist, name='specialist'),
     path('booking/', views.booking, name='booking'),
     path('panel/', views.booking, name='booking'),
 
