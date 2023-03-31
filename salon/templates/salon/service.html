@@ -10,10 +10,19 @@
     <p style="font-size: 20px"><i>Service name</i>: {{detail.name}}</p>
     <p style="font-size: 15px"><i>Duration</i>: {{detail.duration}} min</p>
     <p style="font-size: 15px"><i>Price</i>: {{detail.price}} UAH</p>
-{% endfor %}
 
 {% for specialist in specialists %}
     <p style="font-size: 20px"><i>Specialist</i>: {{specialist.name}}</p>
+    <form method="POST" action="{% url 'booking' detail.name specialist.id %}">
+        {% csrf_token %}
+        <label for="booking_time">Booking time available:</label><br>
+        <input type="datetime-local" name="booking_time" id="booking_time" required><br>
+        <label for="comment">You can leave the comment:</label><br>
+        <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+        <input type="submit" name="booking" value="Book now">
+    </form>
 {% endfor %}
+{% endfor %}
+
 
 {% endblock %}

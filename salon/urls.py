@@ -23,7 +23,5 @@ urlpatterns = [
     path('services/<str:service_name>/', views.one_service, name='service'),
     path('specialists/', views.specialists, name='specialists'),
     path('specialists/<int:specialist_id>/', views.one_specialist, name='specialist'),
-    path('booking/', views.booking, name='booking'),
-    path('panel/', views.booking, name='booking'),
-
+    path('booking_<str:service_name>_<int:specialist_id>/', views.booking, name='booking'),
 ]

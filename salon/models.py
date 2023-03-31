@@ -49,15 +49,14 @@ class Booking(models.Model):
     specialist = models.ForeignKey(Specialist, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     customer = models.IntegerField(null=False)
-    date = models.DateField(null=False)
-    time = models.TimeField(null=False)
-    phone = models.CharField(max_length=20)
+    booking_from = models.DateTimeField(null=True)
+    booking_to = models.DateTimeField(null=True)
+    phone = models.CharField(max_length=20, null=False)
     status = models.IntegerField(default=1, choices=STATUSES)
+    comment = models.CharField(max_length=250, null=True)
 
     def __repr__(self):
-        return f'Booking: Customer: {self.customer}, ' \
+        return f'Booking:\nCustomer: {self.customer}, ' \
+               f'Service: {Service.name} ' \
                f'specialist: {Specialist.name}, ' \
-               f'date: {self.date}, time: {self.time}'
-
-    def __str__(self):
-        return self.customer
+               f'Time of booking: {self.booking_from}'
