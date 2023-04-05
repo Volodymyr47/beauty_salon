@@ -59,4 +59,5 @@ class Booking(models.Model):
         return f'Booking:\nCustomer: {self.customer}, ' \
                f'Service: {Service.name} ' \
                f'specialist: {Specialist.name}, ' \
-               f'Time of booking: {self.booking_from}'
+               f'from: {self.booking_from}' \
+               f'to: {self.booking_to}'

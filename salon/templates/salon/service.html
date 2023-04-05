@@ -1,27 +1,31 @@
 {% extends 'salon/base.html' %}
 {% load static %}
 {% block title %}
-    {{title}}
+{{title}}
 {% endblock %}
 {% block content %}
 <h1>{{title}}</h1>
 
-{% for detail in service_details %}
-    <p style="font-size: 20px"><i>Service name</i>: {{detail.name}}</p>
-    <p style="font-size: 15px"><i>Duration</i>: {{detail.duration}} min</p>
-    <p style="font-size: 15px"><i>Price</i>: {{detail.price}} UAH</p>
+
+<p style="font-size: 20px"><i>Service name</i>: {{service_details.name}}</p>
+<p style="font-size: 15px"><i>Duration</i>: {{service_details.duration}} min</p>
+<p style="font-size: 15px"><i>Price</i>: {{service_details.price}} UAH</p>
 
 {% for specialist in specialists %}
-    <p style="font-size: 20px"><i>Specialist</i>: {{specialist.name}}</p>
-    <form method="POST" action="{% url 'booking' detail.name specialist.id %}">
-        {% csrf_token %}
-        <label for="booking_time">Booking time available:</label><br>
-        <input type="datetime-local" name="booking_time" id="booking_time" required><br>
-        <label for="comment">You can leave the comment:</label><br>
-        <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
-        <input type="submit" name="booking" value="Book now">
-    </form>
-{% endfor %}
+<p style="font-size: 20px"><i>Specialist</i>: {{specialist.name}}</p>
+<form method="POST" action="{% url 'booking' service_details.name specialist.id %}">
+    {% csrf_token %}
+    <label for="booking_time">Booking time available:</label><br>
+    <select name="booking_time" id="booking_time">
+        {% for available_time in specialist.available_booking %}
+        <option value="{{ available_time }}">{{ available_time }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="comment">You can leave the comment:</label><br>
+    <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+    <input type="submit" name="booking" value="Book now">
+</form>
 {% endfor %}
 
 

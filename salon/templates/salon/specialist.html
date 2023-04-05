@@ -6,5 +6,9 @@
 {% block content %}
 <h1>Specialist {{specialist.name}}</h1>
 
+<h4>Available services:</h4>
+{% for service in services %}
+    <p><a href="{% url 'one_service' service.name specialist.id%}">{{service.name}}</a></p>
+{% endfor %}
 
 {% endblock %}
