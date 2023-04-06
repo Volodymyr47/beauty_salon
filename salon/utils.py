@@ -13,6 +13,9 @@ def calc_possible_time_in_day(serv_duration, start_time, end_time, booked_time):
         list of string values - possible booking time
     """
 
+    if end_time <= start_time:
+        raise AttributeError('An incorrect datetime values was received')
+
     service_duration = timedelta(minutes=serv_duration)
     time_step = timedelta(minutes=15)
     number_of_time_slots = []
