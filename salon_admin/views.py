@@ -8,7 +8,11 @@ def main(request):
 
 
 def bookings(request):
-    return render(request, 'salon_admin/bookings.html', {'title': 'Bookings page'})
+    existing_bookings = Booking.objects.filter(specialist__in=Specialist.objects.all(),
+                                               service_id__in=Service.objects.all()
+                                               ).order_by('-id')
+    return render(request, 'salon_admin/bookings.html', {'title': 'Bookings page',
+                                                         'bookings': existing_bookings})
 
 
 def services(request):

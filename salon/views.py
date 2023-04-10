@@ -3,7 +3,6 @@ from salon.models import Service, Specialist, Booking, WorkSchedule
 from datetime import datetime, timedelta
 from salon.utils import calc_possible_time_in_day
 
-
 TIMEDELTA = timedelta(days=7)
 CURRENT_TIME = datetime.today()
 REQUIRED_PERIOD = CURRENT_TIME + TIMEDELTA
@@ -45,7 +44,6 @@ def one_service(request, service_name, specialist_id=None):
                                                               status=2,
                                                               workschedule__end_time__gt=CURRENT_TIME
                                                               ).distinct().values('id', 'name')
-        print(available_specialists)
         for specialist in available_specialists:
             specialist_id = specialist['id']
             available_booking = []
@@ -107,11 +105,12 @@ def one_specialist(request, specialist_id):
 
 def booking(request, service_name, specialist_id):
     if request.method == 'POST':
+        comment = request.POST['comment']
+        booking_from = request.POST['booking_time']
+
         try:
             service = Service.objects.filter(name=service_name).get()
             service_duration = service.duration
-            comment = request.POST['comment']
-            booking_from = request.POST['booking_time']
             booking_to = datetime.strptime(booking_from, '%Y-%m-%d %H:%M') + timedelta(minutes=service_duration)
 
             current_booking = Booking(customer=1,
@@ -123,6 +122,7 @@ def booking(request, service_name, specialist_id):
                                       booking_to=booking_to,
                                       comment=comment)
             current_booking.save()
+
             return render(request, 'salon/booking-success.html')
         except Exception as err:
             print(f'Booking saving error:\n{err}')

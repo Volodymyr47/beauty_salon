@@ -5,4 +5,16 @@
 {% endblock %}
 {% block content %}
 <h1>{{title}}</h1>
+<div>
+ {% for booking in bookings %}
+        <h5><strong>Booking №: {{booking.id}}</strong></h5>
+        <dd><strong>Service: </strong>{{booking.service.name}}</dd>
+        <dd><strong>Booking for: </strong>{{booking.booking_from}}</dd>
+        <dd><strong>Specialist: </strong>{{booking.specialist.name}}</dd>
+        <dd><strong>Customer: </strong>{{booking.customer}}</dd>
+        <dd><strong>Phone: </strong>{{booking.phone}}</dd>
+        <dd>-------------------------------------------------------</dd>
+    <br>
+ {% endfor %}
+</div>
 {% endblock %}

@@ -6,7 +6,7 @@
 {% block content %}
 <h1>{{title}}</h1>
 {% for service in services %}
-    <p>Name: <a href="{{service.id}}/">{{ service.name }}</a>
+    <p>Name: <a href="../service/{{service.id}}/">{{ service.name }}</a>
     Price:{{ service.price }}
     Duration: {{ service.duration }}</p>
 {% endfor %}

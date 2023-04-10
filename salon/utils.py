@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 
 def calc_possible_time_in_day(serv_duration, start_time, end_time, booked_time):
@@ -12,7 +12,6 @@ def calc_possible_time_in_day(serv_duration, start_time, end_time, booked_time):
     Returns:
         list of string values - possible booking time
     """
-
     if end_time <= start_time:
         raise AttributeError('An incorrect datetime values was received')
 
@@ -36,11 +35,11 @@ def calc_possible_time_in_day(serv_duration, start_time, end_time, booked_time):
                         or duration[0] <= booking[1] < duration[1]:
                     break
                 else:
-                    slot_to_add = slot.strftime('%Y-%m-%d %H:%M')
-                    if slot_to_add not in free_time:
+                    if slot > datetime.today():
+                        slot_to_add = slot.strftime('%Y-%m-%d %H:%M')
                         free_time.append(slot_to_add)
         else:
-            slot_to_add = slot.strftime('%Y-%m-%d %H:%M')
-            if slot_to_add not in free_time:
+            if slot > datetime.today():
+                slot_to_add = slot.strftime('%Y-%m-%d %H:%M')
                 free_time.append(slot_to_add)
     return free_time
