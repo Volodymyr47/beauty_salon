@@ -3,6 +3,14 @@
 {% block title %}
 {{title}}
 {% endblock %}
+
 {% block content %}
 <h1>Booking success</h1>
+<h5> Dear {{user.username}}, You have the following booking: </h5><br>
+    {% for detail in booked %}
+        <strong>{{detail.service.name}}</strong> for <strong>{{detail.booking_from}}</strong><br>
+        Specialist <strong>{{detail.specialist.name}}</strong><br>
+        <p><u>{{detail.service.name}} cost: {{detail.service.price}}</u></p>
+    {% endfor %}
+<p>Have a nice day!</p>
 {% endblock %}

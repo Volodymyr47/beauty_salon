@@ -20,7 +20,7 @@ from salon import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('services/', views.services, name='services'),
-    path('services/<str:service_name>/', views.one_service, name='one_service'),
+    path('services/<str:service_name>/'.replace(' ','_'), views.one_service, name='one_service'),
     path('services/<str:service_name>/<int:specialist_id>/', views.one_service, name='one_service'),
     path('specialists/', views.specialists, name='specialists'),
     path('specialists/<int:specialist_id>/', views.one_specialist, name='one_specialist'),

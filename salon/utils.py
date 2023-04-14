@@ -37,9 +37,11 @@ def calc_possible_time_in_day(serv_duration, start_time, end_time, booked_time):
                 else:
                     if slot > datetime.today():
                         slot_to_add = slot.strftime('%Y-%m-%d %H:%M')
-                        free_time.append(slot_to_add)
+                        if slot_to_add not in free_time:
+                            free_time.append(slot_to_add)
         else:
             if slot > datetime.today():
                 slot_to_add = slot.strftime('%Y-%m-%d %H:%M')
-                free_time.append(slot_to_add)
+                if slot_to_add not in free_time:
+                    free_time.append(slot_to_add)
     return free_time

@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth.decorators import login_required
+from user.models import Profile
+from django.shortcuts import render, redirect
 from salon.models import Service, Specialist, Booking, WorkSchedule
 from datetime import datetime, timedelta
 from salon.utils import calc_possible_time_in_day
@@ -9,10 +11,16 @@ REQUIRED_PERIOD = CURRENT_TIME + TIMEDELTA
 
 
 def home(request):
+    if request.user.groups.filter(id=1).exists():
+        return render(request, 'salon/404.html', status=404)
+
     return render(request, 'salon/home.html')
 
 
 def services(request):
+    if request.user.groups.filter(id=1).exists():
+        return render(request, 'salon/404.html', status=404)
+
     all_services = {}
     try:
         all_services = Service.objects.filter(specialist__status=2,
@@ -25,6 +33,10 @@ def services(request):
 
 
 def one_service(request, service_name, specialist_id=None):
+
+    if request.user.groups.filter(id=1).exists():
+        return render(request, 'salon/404.html', status=404)
+
     service_details = {}
     available_specialists = {}
 
@@ -64,10 +76,8 @@ def one_service(request, service_name, specialist_id=None):
                                                       start_time=period['begin_time'],
                                                       end_time=period['end_time'],
                                                       booked_time=booked_time_list)
-
                 available_booking.extend(free_time)
             specialist.update({'available_booking': available_booking})
-
     except Exception as err:
         print(f'One_service error:\n{err}')
 
@@ -76,6 +86,10 @@ def one_service(request, service_name, specialist_id=None):
 
 
 def specialists(request):
+
+    if request.user.groups.filter(id=1).exists():
+        return render(request, 'salon/404.html', status=404)
+
     available_specialists = {}
 
     try:
@@ -88,6 +102,10 @@ def specialists(request):
 
 
 def one_specialist(request, specialist_id):
+
+    if request.user.groups.filter(id=1).exists():
+        return render(request, 'salon/404.html', status=404)
+
     specialist = {}
     available_services = []
     try:
@@ -103,18 +121,25 @@ def one_specialist(request, specialist_id):
                                                      'services': available_services})
 
 
+@login_required(login_url='/user/login')
 def booking(request, service_name, specialist_id):
+
+    if request.user.groups.filter(id=1).exists():
+        return render(request, 'salon/404.html', status=404)
+
     if request.method == 'POST':
         comment = request.POST['comment']
         booking_from = request.POST['booking_time']
 
         try:
             service = Service.objects.filter(name=service_name).get()
+            user_profile = Profile.objects.filter(user_id=request.user.pk).get()
+
             service_duration = service.duration
             booking_to = datetime.strptime(booking_from, '%Y-%m-%d %H:%M') + timedelta(minutes=service_duration)
 
-            current_booking = Booking(customer=1,
-                                      phone='+380991234556',
+            current_booking = Booking(customer=user_profile.user_id,
+                                      phone=user_profile.phone,
                                       status=2,
                                       service_id=service.id,
                                       specialist_id=specialist_id,
@@ -123,7 +148,10 @@ def booking(request, service_name, specialist_id):
                                       comment=comment)
             current_booking.save()
 
-            return render(request, 'salon/booking-success.html')
+            booked = Booking.objects.filter(customer=user_profile.user_id,
+                                            booking_from__gte=booking_from,
+                                            ).all()
+            return render(request, 'salon/booking-success.html', {'booked': booked})
         except Exception as err:
             print(f'Booking saving error:\n{err}')
-            return redirect(one_service, service_name, specialist_id)
+    return redirect(one_service, service_name, specialist_id)

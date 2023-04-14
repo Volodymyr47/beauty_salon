@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.urls import path
 from salon_admin import views
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
-    path('', views.main, name='adm_main'),
+    path('', views.admin_home, name='admin_home'),
+    path('login_redirect/', views.login_redirect, name='login_redirect'),
+    path('login/', LoginView.as_view(template_name='salon_admin/login.html'), name='admin_login'),
+    path('logout/', views.admin_logout, name='admin_logout'),
     path('bookings/', views.bookings, name='adm_bookings'),
     path('services/', views.services, name='adm_services'),
     path('service/<int:service_id>/', views.one_service, name='adm_service'),

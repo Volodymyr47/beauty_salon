@@ -1,0 +1,35 @@
+{% extends 'salon/base.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+<div>
+  <p>{{ errors }}</p>
+</div>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please log in with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+{% endif %}
+
+{% if message %}
+  <p>{{ message }}</p>
+{% endif %}
+
+<form method="post" action="{% url 'pre_login' %}">
+{% csrf_token %}
+{{ form.as_p }}
+
+<input type="submit" value="login"/> or <a href="/user/registration/">Register</a>
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+{% endblock %}

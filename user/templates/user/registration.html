@@ -1,0 +1,41 @@
+{% extends 'salon/base.html' %}
+
+{% load static %}
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<style>
+  .form {
+    margin-top: 70px;
+    margin-felt: 50px;
+    padding-left: 50px
+  }
+</style>
+
+
+{% if form.errors %}
+  <p>{{ errors }}</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please log in with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'register' %}" class="form">
+{% csrf_token %}
+  <div class="container">
+
+      {{ form.as_p }}
+      <button name="submit" class="btn btn_primary" style="background-color: green;">Register</button>
+
+  </div>
+</form>
+
+{% endblock %}

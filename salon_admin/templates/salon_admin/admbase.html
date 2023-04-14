@@ -33,7 +33,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-light">
-    <a class="navbar-brand" href="{% url 'adm_main' %}">Beauty salon <strong>"Julia"</strong></a>
+    <a class="navbar-brand" href="{% url 'admin_home' %}">Beauty salon <strong>"Julia"</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,7 +41,7 @@
       <ul class="navbar-nav ml-auto font-weight-bold form-inline">
 
         <li class="nav-item">
-          <a class="nav-link text-center" href="{% url 'adm_main' %}">Main page</a>
+          <a class="nav-link text-center" href="{% url 'admin_home' %}">Main page</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-center" href="{% url 'adm_services' %}">Services</a>
@@ -52,6 +52,18 @@
         <li class="nav-item">
           <a class="nav-link text-center" href="{% url 'adm_bookings' %}">Bookings</a>
         </li>
+        {% if user.is_authenticated%}
+          <li class="nav-item">
+            Hello, <a href="{% url 'user_view' %}">{{ user.username }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'admin_logout' %}">Logout</a>
+          </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-center" href="{% url 'admin_login' %}">Login</a>
+            </li>
+        {% endif %}
 
       </ul>
     </div>

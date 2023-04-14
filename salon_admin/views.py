@@ -1,13 +1,32 @@
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+
 from salon.models import Service, Specialist, Booking, WorkSchedule
-from salon.views import CURRENT_TIME
+from salon import views as salon_view
 
 
-def main(request):
+def login_redirect(request):
+    return render(request, 'salon_admin/login_redirect.html')
+
+
+@login_required
+def admin_logout(request):
+    logout(request)
+    return redirect(admin_home)
+
+
+@login_required(login_url='/administrator/login/')
+def admin_home(request):
+    if not request.user.groups.filter(id=1).exists():
+        return render(request, 'salon_admin/404.html', status=404)
     return render(request, 'salon_admin/main.html', {'title': 'Administration page'})
 
 
+@login_required(login_url='/administrator/login_redirect/')
 def bookings(request):
+    if not request.user.groups.filter(id=1).exists():
+        return render(request, 'salon_admin/404.html', status=404)
     existing_bookings = Booking.objects.filter(specialist__in=Specialist.objects.all(),
                                                service_id__in=Service.objects.all()
                                                ).order_by('-id')
@@ -15,7 +34,10 @@ def bookings(request):
                                                          'bookings': existing_bookings})
 
 
+@login_required(login_url='/administrator/login_redirect/')
 def services(request):
+    if not request.user.groups.filter(id=1).exists():
+        return render(request, 'salon_admin/404.html', status=404)
     if request.method == 'POST':
         service_name = request.POST['name']
         service_price = request.POST['price']
@@ -33,7 +55,10 @@ def services(request):
                                                          'services': all_services})
 
 
+@login_required(login_url='/administrator/login_redirect/')
 def one_service(request, service_id):
+    if not request.user.groups.filter(id=1).exists():
+        return render(request, 'salon_admin/404.html', status=404)
     if request.method == 'POST':
         name = request.POST['name']
         price = request.POST['price']
@@ -52,7 +77,10 @@ def one_service(request, service_id):
     return render(request, 'salon_admin/service.html', {'service': specific_service})
 
 
+@login_required(login_url='/administrator/login_redirect/')
 def specialists(request):
+    if not request.user.groups.filter(id=1).exists():
+        return render(request, 'salon_admin/404.html', status=404)
     if request.method == 'POST':
         name = request.POST['name']
         phone = request.POST['phone']
@@ -73,7 +101,10 @@ def specialists(request):
                                                             'specialists': all_specialist})
 
 
+@login_required(login_url='/administrator/login_redirect/')
 def one_specialist(request, specialist_id):
+    if not request.user.groups.filter(id=1).exists():
+        return render(request, 'salon_admin/404.html', status=404)
     checked_services = Service.objects.filter(specialist__id=specialist_id).all()
     checked_ids = []
     for service in checked_services:
@@ -117,7 +148,7 @@ def one_specialist(request, specialist_id):
     specific_specialist = Specialist.objects.filter(id=specialist_id).get()
     all_services = Service.objects.all()
     specialist_schedule = WorkSchedule.objects.filter(specialist_id=specialist_id,
-                                                      begin_time__gte=CURRENT_TIME).order_by('begin_time')
+                                                      begin_time__gte=salon_view.CURRENT_TIME).order_by('begin_time')
     return render(request, 'salon_admin/specialist.html', {'specialist': specific_specialist,
                                                            'services': all_services,
                                                            'checked_ids': checked_ids,
