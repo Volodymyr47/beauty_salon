@@ -1,9 +1,10 @@
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
 from django.template.loader import render_to_string
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout, login, authenticate
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import Group
@@ -13,13 +14,19 @@ from .tokens import account_activation_token
 
 
 def pre_login(request):
-    username = request.POST['username']
-    usr = User.objects.get(username=username)
 
-    if not usr.is_active:
-        return redirect(activation_sent_view)
+    usr = authenticate(username=request.POST['username'],
+                       password=request.POST['password'])
 
-    login(request, usr)
+    if usr is not None:
+        if not usr.is_active:
+            return redirect(activation_sent_view)
+        else:
+            login(request, usr)
+    else:
+        messages.error(request, "Invalid username or password")
+        return HttpResponseRedirect(reverse('user_login'))
+
     next_page = request.POST.get('next')
     if next_page:
         return redirect(next_page)
@@ -52,16 +59,13 @@ def activate(request, uidb64, token):
         return render(request, 'user/activation_invalid.html', {'message': message})
 
 
-
 def register(request):
     """
     User registrations function
     """
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-
         if form.is_valid():
-            print('email =', form.cleaned_data.get('email'))
             user = form.save()
             user.refresh_from_db()
             user.profile.username = form.cleaned_data.get('username')

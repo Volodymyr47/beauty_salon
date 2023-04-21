@@ -1,0 +1,1051 @@
+[
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "salon",
+        "model": "service"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "salon",
+        "model": "specialist"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "salon",
+        "model": "workschedule"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "salon",
+        "model": "booking"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "user",
+        "model": "profile"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "1xmd66lp851tluk7z1v9yb6erey0gj0n",
+    "fields": {
+        "session_data": "MWMxYWMxNjFjM2MyNjM0Yzg3Zjk3ZmU5ODE0MWFiMmM1ZTMwODU0NTp7Il9hdXRoX3VzZXJfaWQiOiIxMyIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiYTdiNDQ5ZDM4YzBiNTYxZGUxMTY2YWM2MjkxODgyZmNhZDA5MTU3YyJ9",
+        "expire_date": "2023-05-05T13:06:30.495"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "j0jkjgmpacup6kjwqf9s62pnjl0r7nfb",
+    "fields": {
+        "session_data": "MDIxNDdjYTdlOTRkNmRjZTk3ZmEzMmMwYzQ0N2FjNmYwYzcxMzE4Yjp7fQ==",
+        "expire_date": "2023-05-05T11:32:33.475"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "k12wwwtwyspbllk5vghbncr8w5h5551x",
+    "fields": {
+        "session_data": "MDIxNDdjYTdlOTRkNmRjZTk3ZmEzMmMwYzQ0N2FjNmYwYzcxMzE4Yjp7fQ==",
+        "expire_date": "2023-05-05T11:30:30.665"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "miybaojn2ps0dpeqq56bu3jrcxbtqqdg",
+    "fields": {
+        "session_data": "MDIxNDdjYTdlOTRkNmRjZTk3ZmEzMmMwYzQ0N2FjNmYwYzcxMzE4Yjp7fQ==",
+        "expire_date": "2023-05-05T11:31:49.503"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "vms9co7vaq65c58umiapjbn5cj227wbf",
+    "fields": {
+        "session_data": "MDIxNDdjYTdlOTRkNmRjZTk3ZmEzMmMwYzQ0N2FjNmYwYzcxMzE4Yjp7fQ==",
+        "expire_date": "2023-05-05T11:33:08.648"
+    }
+},
+{
+    "model": "salon.service",
+    "pk": 1,
+    "fields": {
+        "name": "Hair cutting",
+        "price": 150.0,
+        "duration": 30
+    }
+},
+{
+    "model": "salon.service",
+    "pk": 2,
+    "fields": {
+        "name": "Head washing",
+        "price": 100.0,
+        "duration": 15
+    }
+},
+{
+    "model": "salon.service",
+    "pk": 3,
+    "fields": {
+        "name": "Beard cutting",
+        "price": 120.0,
+        "duration": 30
+    }
+},
+{
+    "model": "salon.service",
+    "pk": 4,
+    "fields": {
+        "name": "Eyebrows cutting",
+        "price": 50.0,
+        "duration": 15
+    }
+},
+{
+    "model": "salon.service",
+    "pk": 5,
+    "fields": {
+        "name": "New super cutting",
+        "price": 300.0,
+        "duration": 120
+    }
+},
+{
+    "model": "salon.service",
+    "pk": 7,
+    "fields": {
+        "name": "New service 23",
+        "price": 125.0,
+        "duration": 30
+    }
+},
+{
+    "model": "salon.specialist",
+    "pk": 1,
+    "fields": {
+        "name": "Tamara",
+        "rank": 1,
+        "phone": "0953216548",
+        "status": 2,
+        "services": [
+            1,
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "salon.specialist",
+    "pk": 2,
+    "fields": {
+        "name": "Karina",
+        "rank": 2,
+        "phone": "+380731239878",
+        "status": 2,
+        "services": [
+            1,
+            2,
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "salon.specialist",
+    "pk": 3,
+    "fields": {
+        "name": "Julia",
+        "rank": 2,
+        "phone": "0957778899",
+        "status": 2,
+        "services": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "salon.specialist",
+    "pk": 4,
+    "fields": {
+        "name": "Olia",
+        "rank": 1,
+        "phone": "+456878987890",
+        "status": 2,
+        "services": [
+            3,
+            4
+        ]
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 10,
+    "fields": {
+        "specialist": 4,
+        "begin_time": "2023-04-05T09:00:00",
+        "end_time": "2023-04-05T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 11,
+    "fields": {
+        "specialist": 3,
+        "begin_time": "2023-04-06T09:00:00",
+        "end_time": "2023-04-06T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 12,
+    "fields": {
+        "specialist": 1,
+        "begin_time": "2023-04-05T08:00:00",
+        "end_time": "2023-04-05T17:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 13,
+    "fields": {
+        "specialist": 1,
+        "begin_time": "2023-04-06T08:00:00",
+        "end_time": "2023-04-06T17:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 15,
+    "fields": {
+        "specialist": 3,
+        "begin_time": "2023-04-05T09:00:00",
+        "end_time": "2023-04-05T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 16,
+    "fields": {
+        "specialist": 3,
+        "begin_time": "2023-04-10T09:00:00",
+        "end_time": "2023-04-10T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 17,
+    "fields": {
+        "specialist": 1,
+        "begin_time": "2023-04-10T09:00:00",
+        "end_time": "2023-04-10T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 18,
+    "fields": {
+        "specialist": 3,
+        "begin_time": "2023-04-11T09:00:00",
+        "end_time": "2023-04-11T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 19,
+    "fields": {
+        "specialist": 3,
+        "begin_time": "2023-04-16T09:00:00",
+        "end_time": "2023-04-16T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 20,
+    "fields": {
+        "specialist": 3,
+        "begin_time": "2023-04-20T09:00:00",
+        "end_time": "2023-04-20T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 21,
+    "fields": {
+        "specialist": 3,
+        "begin_time": "2023-04-21T09:00:00",
+        "end_time": "2023-04-21T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 22,
+    "fields": {
+        "specialist": 2,
+        "begin_time": "2023-04-22T09:00:00",
+        "end_time": "2023-04-22T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 23,
+    "fields": {
+        "specialist": 2,
+        "begin_time": "2023-04-23T10:00:00",
+        "end_time": "2023-04-23T18:00:00"
+    }
+},
+{
+    "model": "salon.workschedule",
+    "pk": 24,
+    "fields": {
+        "specialist": 1,
+        "begin_time": "2023-04-22T11:00:00",
+        "end_time": "2023-04-22T19:00:00"
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 101,
+    "fields": {
+        "specialist": 3,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-20T11:45:00",
+        "booking_to": "2023-04-20T12:25:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": ""
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 114,
+    "fields": {
+        "specialist": 3,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-20T13:15:00",
+        "booking_to": "2023-04-20T13:45:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": ""
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 134,
+    "fields": {
+        "specialist": 3,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-20T14:45:00",
+        "booking_to": "2023-04-20T15:15:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": ""
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 135,
+    "fields": {
+        "specialist": 3,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-20T15:15:00",
+        "booking_to": "2023-04-20T15:45:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": ""
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 141,
+    "fields": {
+        "specialist": 3,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-20T16:45:00",
+        "booking_to": "2023-04-20T17:15:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": ""
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 175,
+    "fields": {
+        "specialist": 3,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-21T16:15:00",
+        "booking_to": "2023-04-21T16:45:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": ""
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 201,
+    "fields": {
+        "specialist": 3,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-21T12:00:00",
+        "booking_to": "2023-04-21T12:30:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": ""
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 205,
+    "fields": {
+        "specialist": 2,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-22T09:00:00",
+        "booking_to": "2023-04-22T09:30:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": "Hello"
+    }
+},
+{
+    "model": "salon.booking",
+    "pk": 206,
+    "fields": {
+        "specialist": 3,
+        "service": 3,
+        "customer": 13,
+        "booking_from": "2023-04-21T13:00:00",
+        "booking_to": "2023-04-21T13:30:00",
+        "phone": "+380987456554",
+        "status": 2,
+        "comment": ""
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add service",
+        "content_type": 7,
+        "codename": "add_service"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change service",
+        "content_type": 7,
+        "codename": "change_service"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete service",
+        "content_type": 7,
+        "codename": "delete_service"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view service",
+        "content_type": 7,
+        "codename": "view_service"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add specialist",
+        "content_type": 8,
+        "codename": "add_specialist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change specialist",
+        "content_type": 8,
+        "codename": "change_specialist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete specialist",
+        "content_type": 8,
+        "codename": "delete_specialist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view specialist",
+        "content_type": 8,
+        "codename": "view_specialist"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add work schedule",
+        "content_type": 9,
+        "codename": "add_workschedule"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change work schedule",
+        "content_type": 9,
+        "codename": "change_workschedule"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete work schedule",
+        "content_type": 9,
+        "codename": "delete_workschedule"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view work schedule",
+        "content_type": 9,
+        "codename": "view_workschedule"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add booking",
+        "content_type": 10,
+        "codename": "add_booking"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change booking",
+        "content_type": 10,
+        "codename": "change_booking"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete booking",
+        "content_type": 10,
+        "codename": "delete_booking"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view booking",
+        "content_type": 10,
+        "codename": "view_booking"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add profile",
+        "content_type": 11,
+        "codename": "add_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change profile",
+        "content_type": 11,
+        "codename": "change_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete profile",
+        "content_type": 11,
+        "codename": "delete_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view profile",
+        "content_type": 11,
+        "codename": "view_profile"
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "salon_admin",
+        "permissions": [
+            38,
+            39,
+            40,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "customer",
+        "permissions": [
+            37,
+            28,
+            32,
+            36,
+            42,
+            43,
+            44
+        ]
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$xjaxMuzlmkn0$9jZXYFZgaUCZnyj9n/zIN2tq279Gq7/EwbpDwlgrKuA=",
+        "last_login": "2023-04-14T11:25:26.335",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@admin.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2023-04-14T11:24:39.755",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$yAmsM5Rs2wcp$3xOODmrkNLPrsXXzK83eG8DSxo+CMkJiS1rcdvabZ/E=",
+        "last_login": "2023-04-21T12:37:37.685",
+        "is_superuser": false,
+        "username": "salonadmin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@salonyulia.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-04-14T11:31:56",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 13,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$lZapVxgjYpKz$kFRsLgM7BNdb0rPCsGpgvy0/QCpu6VpX36YJNt1X3Fo=",
+        "last_login": "2023-04-21T13:06:30.473",
+        "is_superuser": false,
+        "username": "vova",
+        "first_name": "",
+        "last_name": "",
+        "email": "vova@asdasd.cx",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-04-14T16:15:49.735",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "user.profile",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "username": "admin",
+        "email": "admin@admin.com",
+        "phone": "No phone",
+        "signup_confirmation": false
+    }
+},
+{
+    "model": "user.profile",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "username": "salonadmin",
+        "email": "admin@salonyulia.com",
+        "phone": "",
+        "signup_confirmation": false
+    }
+},
+{
+    "model": "user.profile",
+    "pk": 10,
+    "fields": {
+        "user": 13,
+        "username": "vova",
+        "email": "vova@asdasd.cx",
+        "phone": "+380987456554",
+        "signup_confirmation": true
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2023-04-14T11:31:57.219",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "2",
+        "object_repr": "salonadmin",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2023-04-14T11:32:47.704",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "2",
+        "object_repr": "salonadmin",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"email\", \"groups\"]}}]"
+    }
+}
+]

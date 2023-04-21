@@ -6,16 +6,15 @@
 {% block content %}
 <h1>{{title}}</h1>
 
-
 <p style="font-size: 20px"><i>Service name</i>: {{service_details.name}}</p>
-<p style="font-size: 15px"><i>Duration</i>: {{service_details.duration}} min</p>
-<p style="font-size: 15px"><i>Price</i>: {{service_details.price}} UAH</p>
+<p style="font-size: 18px"><i>Duration</i>: {{service_details.duration}} min</p>
+<p style="font-size: 18px"><i>Price</i>: {{service_details.price}} UAH</p>
 
 {% for specialist in specialists %}
-<p style="font-size: 20px"><i>Specialist</i>: {{specialist.name}}</p>
+<p><strong>Specialist</strong>: {{specialist.name}}</p>
 <form method="POST" action="{% url 'booking' service_details.name specialist.id %}">
     {% csrf_token %}
-    <label for="booking_time">Booking time available:</label><br>
+    <label for="booking_time"><strong>Booking time available:</strong></label><br>
     <select name="booking_time" id="booking_time">
         {% for available_time in specialist.available_booking %}
         <option value="{{ available_time }}">{{ available_time }}</option>
@@ -26,6 +25,9 @@
     <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
     <input type="submit" name="booking" value="Book now">
 </form>
+<div class="mb-2 mt-2" style="background-color: #F7A3F7; color: #F7A3F7; height: 2px">
+    <hr>
+</div>
 {% endfor %}
 
 

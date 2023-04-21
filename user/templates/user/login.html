@@ -21,8 +21,10 @@
   {% endif %}
 {% endif %}
 
-{% if message %}
-  <p>{{ message }}</p>
+{% if messages %}
+{% for message in messages %}
+  <p>{{ message}}</p>
+{% endfor %}
 {% endif %}
 
 <form method="post" action="{% url 'pre_login' %}">

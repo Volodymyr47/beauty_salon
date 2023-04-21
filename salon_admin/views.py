@@ -2,6 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
+from user.utils import salon_admin_required
 from salon.models import Service, Specialist, Booking, WorkSchedule
 from salon import views as salon_view
 
@@ -17,16 +18,14 @@ def admin_logout(request):
 
 
 @login_required(login_url='/administrator/login/')
+@salon_admin_required
 def admin_home(request):
-    if not request.user.groups.filter(id=1).exists():
-        return render(request, 'salon_admin/404.html', status=404)
     return render(request, 'salon_admin/main.html', {'title': 'Administration page'})
 
 
 @login_required(login_url='/administrator/login_redirect/')
+@salon_admin_required
 def bookings(request):
-    if not request.user.groups.filter(id=1).exists():
-        return render(request, 'salon_admin/404.html', status=404)
     existing_bookings = Booking.objects.filter(specialist__in=Specialist.objects.all(),
                                                service_id__in=Service.objects.all()
                                                ).order_by('-id')
@@ -35,9 +34,8 @@ def bookings(request):
 
 
 @login_required(login_url='/administrator/login_redirect/')
+@salon_admin_required
 def services(request):
-    if not request.user.groups.filter(id=1).exists():
-        return render(request, 'salon_admin/404.html', status=404)
     if request.method == 'POST':
         service_name = request.POST['name']
         service_price = request.POST['price']
@@ -56,9 +54,8 @@ def services(request):
 
 
 @login_required(login_url='/administrator/login_redirect/')
+@salon_admin_required
 def one_service(request, service_id):
-    if not request.user.groups.filter(id=1).exists():
-        return render(request, 'salon_admin/404.html', status=404)
     if request.method == 'POST':
         name = request.POST['name']
         price = request.POST['price']
@@ -78,9 +75,8 @@ def one_service(request, service_id):
 
 
 @login_required(login_url='/administrator/login_redirect/')
+@salon_admin_required
 def specialists(request):
-    if not request.user.groups.filter(id=1).exists():
-        return render(request, 'salon_admin/404.html', status=404)
     if request.method == 'POST':
         name = request.POST['name']
         phone = request.POST['phone']
@@ -102,9 +98,8 @@ def specialists(request):
 
 
 @login_required(login_url='/administrator/login_redirect/')
+@salon_admin_required
 def one_specialist(request, specialist_id):
-    if not request.user.groups.filter(id=1).exists():
-        return render(request, 'salon_admin/404.html', status=404)
     checked_services = Service.objects.filter(specialist__id=specialist_id).all()
     checked_ids = []
     for service in checked_services:

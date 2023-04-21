@@ -4,24 +4,22 @@ from django.shortcuts import render, redirect
 from salon.models import Service, Specialist, Booking, WorkSchedule
 from datetime import datetime, timedelta
 from salon.utils import calc_possible_time_in_day
+from user.utils import simple_user_required
 
 TIMEDELTA = timedelta(days=7)
 CURRENT_TIME = datetime.today()
 REQUIRED_PERIOD = CURRENT_TIME + TIMEDELTA
 
 
+@simple_user_required
 def home(request):
-    if request.user.groups.filter(id=1).exists():
-        return render(request, 'salon/404.html', status=404)
-
     return render(request, 'salon/home.html')
 
 
+@simple_user_required
 def services(request):
-    if request.user.groups.filter(id=1).exists():
-        return render(request, 'salon/404.html', status=404)
-
     all_services = {}
+
     try:
         all_services = Service.objects.filter(specialist__status=2,
                                               specialist__workschedule__end_time__range=(CURRENT_TIME, REQUIRED_PERIOD)
@@ -32,11 +30,8 @@ def services(request):
     return render(request, 'salon/services.html', {'services': all_services})
 
 
+@simple_user_required
 def one_service(request, service_name, specialist_id=None):
-
-    if request.user.groups.filter(id=1).exists():
-        return render(request, 'salon/404.html', status=404)
-
     service_details = {}
     available_specialists = {}
 
@@ -56,10 +51,11 @@ def one_service(request, service_name, specialist_id=None):
                                                               status=2,
                                                               workschedule__end_time__gt=CURRENT_TIME
                                                               ).distinct().values('id', 'name')
+
         for specialist in available_specialists:
             specialist_id = specialist['id']
             available_booking = []
-            work_day = WorkSchedule.objects.filter(specialist_id=specialist_id,
+            work_day = WorkSchedule.objects.filter(specialist_id=specialist['id'],
                                                    end_time__range=(CURRENT_TIME, REQUIRED_PERIOD)
                                                    ).values('begin_time', 'end_time').order_by('begin_time')
 
@@ -79,17 +75,14 @@ def one_service(request, service_name, specialist_id=None):
                 available_booking.extend(free_time)
             specialist.update({'available_booking': available_booking})
     except Exception as err:
-        print(f'One_service error:\n{err}')
+        print(f'An error occurred in "One_service" function error:\n{err}')
 
     return render(request, 'salon/service.html', {'service_details': service_details,
                                                   'specialists': available_specialists})
 
 
+@simple_user_required
 def specialists(request):
-
-    if request.user.groups.filter(id=1).exists():
-        return render(request, 'salon/404.html', status=404)
-
     available_specialists = {}
 
     try:
@@ -101,13 +94,11 @@ def specialists(request):
     return render(request, 'salon/specialists.html', {'specialists': available_specialists})
 
 
+@simple_user_required
 def one_specialist(request, specialist_id):
-
-    if request.user.groups.filter(id=1).exists():
-        return render(request, 'salon/404.html', status=404)
-
     specialist = {}
     available_services = []
+
     try:
         specialist = Specialist.objects.filter(status=2,
                                                id=specialist_id
@@ -122,11 +113,8 @@ def one_specialist(request, specialist_id):
 
 
 @login_required(login_url='/user/login')
+@simple_user_required
 def booking(request, service_name, specialist_id):
-
-    if request.user.groups.filter(id=1).exists():
-        return render(request, 'salon/404.html', status=404)
-
     if request.method == 'POST':
         comment = request.POST['comment']
         booking_from = request.POST['booking_time']
@@ -147,11 +135,27 @@ def booking(request, service_name, specialist_id):
                                       booking_to=booking_to,
                                       comment=comment)
             current_booking.save()
+            user_id = user_profile.user_id
 
-            booked = Booking.objects.filter(customer=user_profile.user_id,
-                                            booking_from__gte=booking_from,
-                                            ).all()
-            return render(request, 'salon/booking-success.html', {'booked': booked})
+            return redirect('booking_success', user_id)
+
         except Exception as err:
             print(f'Booking saving error:\n{err}')
     return redirect(one_service, service_name, specialist_id)
+
+
+@login_required(login_url='/user/login')
+@simple_user_required
+def booking_success(request, user_id):
+    booked = {}
+    try:
+        booked = Booking.objects.filter(customer=user_id,
+                                        booking_from__gte=CURRENT_TIME,
+                                        ).all().order_by('-booking_from')
+    except Exception as err:
+        print(f'An error occurred in "get_booking_info" function\n{err}')
+
+    if booked:
+        return render(request, 'salon/booking-success.html', {'booked': booked})
+    message = 'You do not have any bookings'
+    return render(request, 'salon/booking-success.html', {'message': message})
