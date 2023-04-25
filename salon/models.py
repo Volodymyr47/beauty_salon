@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Service(models.Model):
@@ -48,7 +49,8 @@ class Booking(models.Model):
     )
     specialist = models.ForeignKey(Specialist, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    customer = models.IntegerField(null=False)
+    # customer = models.IntegerField(null=False)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
     booking_from = models.DateTimeField(null=True)
     booking_to = models.DateTimeField(null=True)
     phone = models.CharField(max_length=20, null=False)

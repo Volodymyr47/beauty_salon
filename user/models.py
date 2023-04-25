@@ -6,8 +6,6 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=150, blank=False, unique=True, db_index=True)
-    email = models.EmailField(max_length=150, blank=False, unique=True, db_index=True)
     phone = models.CharField(max_length=17, blank=True)
     signup_confirmation = models.BooleanField(default=False)
 

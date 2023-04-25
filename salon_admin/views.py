@@ -1,6 +1,8 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 
 from user.utils import salon_admin_required
 from salon.models import Service, Specialist, Booking, WorkSchedule
@@ -27,10 +29,15 @@ def admin_home(request):
 @salon_admin_required
 def bookings(request):
     existing_bookings = Booking.objects.filter(specialist__in=Specialist.objects.all(),
-                                               service_id__in=Service.objects.all()
+                                               service_id__in=Service.objects.all(),
+                                               customer__in=User.objects.all()
                                                ).order_by('-id')
+    per_page = 4
+    paginator = Paginator(existing_bookings, per_page=per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, 'salon_admin/bookings.html', {'title': 'Bookings page',
-                                                         'bookings': existing_bookings})
+                                                         'page_obj': page_obj})
 
 
 @login_required(login_url='/administrator/login_redirect/')
@@ -49,8 +56,12 @@ def services(request):
             print(f'New service adding error:\n{err}')
 
     all_services = Service.objects.all().order_by('name')
+    per_page = 3
+    paginator = Paginator(all_services, per_page=per_page)
+    page_number = request.GET.get('page')
+    services_page = paginator.get_page(page_number)
     return render(request, 'salon_admin/services.html', {'title': 'Services',
-                                                         'services': all_services})
+                                                         'services_page': services_page})
 
 
 @login_required(login_url='/administrator/login_redirect/')
@@ -93,8 +104,13 @@ def specialists(request):
             print(f'New specialist adding error:\n{err}')
 
     all_specialist = Specialist.objects.all()
+    per_page = 3
+    paginator = Paginator(all_specialist, per_page=per_page)
+    page_number = request.GET.get('page')
+    specialists_page = paginator.get_page(page_number)
+
     return render(request, 'salon_admin/specialists.html', {'title': 'Specialists',
-                                                            'specialists': all_specialist})
+                                                            'specialists_page': specialists_page})
 
 
 @login_required(login_url='/administrator/login_redirect/')

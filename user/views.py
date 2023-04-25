@@ -66,10 +66,11 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
+            # user = form.save(commit=False)
+            # user.username = form.cleaned_data.get('email')
+            # user.save()
             user = form.save()
             user.refresh_from_db()
-            user.profile.username = form.cleaned_data.get('username')
-            user.profile.email = form.cleaned_data.get('email')
             user.profile.phone = form.cleaned_data.get('phone')
             group = Group.objects.get(name='customer')
             group.user_set.add(user)

@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from salon import views
 
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('services/', views.services, name='services'),
-    path('services/<str:service_name>/'.replace("  ", "_"), views.one_service, name='one_service'),
-    path('services/<str:service_name>/<int:specialist_id>/', views.one_service, name='one_service'),
+    path('service/<str:service_name>/'.replace("  ", "_"), views.one_service, name='one_service'),
+    path('service/<str:service_name>/<int:specialist_id>/', views.one_service, name='one_service'),
     path('specialists/', views.specialists, name='specialists'),
     path('specialists/<int:specialist_id>/', views.one_specialist, name='one_specialist'),
-    path('booking/<str:service_name>/<int:specialist_id>/', views.booking, name='booking'),
-    path('/booking/success/<int:user_id>/', views.booking_success, name='booking_success'),
+    path('booking/<str:service_name>/<int:specialist_id>/', views.make_booking, name='make_booking'),
+    path('booked/successful/<int:user_id>/', views.booking_success, name='booking_success'),
 ]

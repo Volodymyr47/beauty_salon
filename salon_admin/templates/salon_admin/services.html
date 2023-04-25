@@ -5,12 +5,6 @@
 {% endblock %}
 {% block content %}
 <h1>{{title}}</h1>
-{% for service in services %}
-    <p>Name: <a href="../service/{{service.id}}/">{{ service.name }}</a>
-    Price:{{ service.price }}
-    Duration: {{ service.duration }}</p>
-{% endfor %}
-
 <form method="POST">
     {% csrf_token %}
     <div>
@@ -18,7 +12,33 @@
         <span>Price: </span><input type="number" name="price" required><br>
         <span>Duration: </span><input type="number" name="duration" required>
     </div>
+    <br>
     <input type="submit" value="Add service">
 </form>
+<br>
+{% for service in services_page %}
+    <p>Name: <a href="../service/{{service.id}}/">{{ service.name }}</a>
+    Price:{{ service.price }}
+    Duration: {{ service.duration }}</p>
+{% endfor %}
+
+<div class="pagination justify-content-center">
+    <span class="step-links">
+        {% if services_page.has_previous %}
+            <a href="?page=1">&laquo;First</a>
+            <a href="?page={{ services_page.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ services_page.number }} of {{ services_page.paginator.num_pages }}.
+        </span>
+
+        {% if services_page.has_next %}
+            <a href="?page={{ services_page.next_page_number }}"> Next </a>
+            <a href="?page={{ services_page.paginator.num_pages }}"> Last&raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+
 
 {% endblock %}

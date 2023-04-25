@@ -12,7 +12,7 @@
 
 {% for specialist in specialists %}
 <p><strong>Specialist</strong>: {{specialist.name}}</p>
-<form method="POST" action="{% url 'booking' service_details.name specialist.id %}">
+<form method="POST" action="{% url 'make_booking' service_details.name specialist.id %}">
     {% csrf_token %}
     <label for="booking_time"><strong>Booking time available:</strong></label><br>
     <select name="booking_time" id="booking_time">
@@ -23,7 +23,7 @@
 
     <label for="comment">You can leave the comment:</label><br>
     <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
-    <input type="submit" name="booking" value="Book now">
+    <input type="submit" name="book_now" value="Book now">
 </form>
 <div class="mb-2 mt-2" style="background-color: #F7A3F7; color: #F7A3F7; height: 2px">
     <hr>

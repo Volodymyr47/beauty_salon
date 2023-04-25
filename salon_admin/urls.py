@@ -17,6 +17,7 @@ from django.urls import path
 from salon_admin import views
 from django.contrib.auth.views import LoginView
 
+
 urlpatterns = [
     path('', views.admin_home, name='admin_home'),
     path('login_redirect/', views.login_redirect, name='login_redirect'),
@@ -27,5 +28,4 @@ urlpatterns = [
     path('service/<int:service_id>/', views.one_service, name='adm_service'),
     path('specialists/', views.specialists, name='adm_specialists'),
     path('specialist/<int:specialist_id>/', views.one_specialist, name='adm_specialist'),
-
 ]

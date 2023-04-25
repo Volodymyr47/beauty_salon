@@ -1,4 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 from user.models import Profile
 from django.shortcuts import render, redirect
 from salon.models import Service, Specialist, Booking, WorkSchedule
@@ -114,7 +119,7 @@ def one_specialist(request, specialist_id):
 
 @login_required(login_url='/user/login')
 @simple_user_required
-def booking(request, service_name, specialist_id):
+def make_booking(request, service_name, specialist_id):
     if request.method == 'POST':
         comment = request.POST['comment']
         booking_from = request.POST['booking_time']
@@ -122,11 +127,12 @@ def booking(request, service_name, specialist_id):
         try:
             service = Service.objects.filter(name=service_name).get()
             user_profile = Profile.objects.filter(user_id=request.user.pk).get()
+            user = User.objects.filter(id=request.user.pk).get()
 
             service_duration = service.duration
             booking_to = datetime.strptime(booking_from, '%Y-%m-%d %H:%M') + timedelta(minutes=service_duration)
 
-            current_booking = Booking(customer=user_profile.user_id,
+            current_booking = Booking(customer=user,
                                       phone=user_profile.phone,
                                       status=2,
                                       service_id=service.id,
@@ -135,13 +141,11 @@ def booking(request, service_name, specialist_id):
                                       booking_to=booking_to,
                                       comment=comment)
             current_booking.save()
-            user_id = user_profile.user_id
-
-            return redirect('booking_success', user_id)
+            return HttpResponseRedirect(reverse('booking_success', args=[user.id]))
 
         except Exception as err:
             print(f'Booking saving error:\n{err}')
-    return redirect(one_service, service_name, specialist_id)
+    return redirect('one_service', service_name, specialist_id)
 
 
 @login_required(login_url='/user/login')
@@ -156,6 +160,10 @@ def booking_success(request, user_id):
         print(f'An error occurred in "get_booking_info" function\n{err}')
 
     if booked:
-        return render(request, 'salon/booking-success.html', {'booked': booked})
+        per_page = 5
+        paginator = Paginator(booked, per_page=per_page)
+        page_number = request.GET.get('page')
+        booking_page = paginator.get_page(page_number)
+        return render(request, 'salon/booking-success.html', {'booking_page': booking_page})
     message = 'You do not have any bookings'
     return render(request, 'salon/booking-success.html', {'message': message})

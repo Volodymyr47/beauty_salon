@@ -5,19 +5,6 @@
 {% endblock %}
 {% block content %}
 <h1>{{title}}</h1>
-{% for specialist in specialists %}
-    <div>
-        <br>Name: <a href="../specialist/{{specialist.id}}/">{{ specialist.name }}</a><br>
-       Rank: {{ specialist.rank }}
-       Phone: {{ specialist.phone }}
-       Status: {{ specialist.status }}<br>
-       Services:
-        {% for current_service in specialist.services.all %}
-            {{ current_service.name }}
-        {% endfor %}
-    </div>
-{% endfor %}
-<br>
 <form method="POST">
     {% csrf_token %}
     <div>
@@ -34,4 +21,35 @@
     <input type="submit" value="Add specialist">
 
 </form>
+{% for specialist in specialists_page %}
+    <div>
+        <br>Name: <a href="../specialist/{{specialist.id}}/">{{ specialist.name }}</a><br>
+       Rank: {{ specialist.rank }}
+       Phone: {{ specialist.phone }}
+       Status: {{ specialist.status }}<br>
+       Services:
+        {% for current_service in specialist.services.all %}
+            {{ current_service.name }}
+        {% endfor %}
+    </div>
+{% endfor %}
+<br>
+<div class="pagination justify-content-center">
+    <span class="step-links">
+        {% if specialists_page.has_previous %}
+            <a href="?page=1">&laquo;First</a>
+            <a href="?page={{ specialists_page.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ specialists_page.number }} of {{ specialists_page.paginator.num_pages }}.
+        </span>
+
+        {% if specialists_page.has_next %}
+            <a href="?page={{ specialists_page.next_page_number }}"> Next </a>
+            <a href="?page={{ specialists_page.paginator.num_pages }}"> Last&raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+
 {% endblock %}

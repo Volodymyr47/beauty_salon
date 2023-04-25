@@ -6,7 +6,7 @@
 <h1>We present the following services to your attention</h1>
 
 {% for service in services %}
-    <p style="font-size: 30px"><a href="{{service.name}}/">{{service.name}}</a></p>
+    <p style="font-size: 30px"><a href="/service/{{service.name}}/">{{service.name}}</a></p>
 {% endfor %}
 
 {% endblock %}

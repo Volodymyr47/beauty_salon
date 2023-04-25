@@ -1,20 +1,44 @@
 {% extends 'salon_admin/admbase.html' %}
 {% load static %}
+
 {% block title %}
-{{title}}
+    {{title}}
 {% endblock %}
+
 {% block content %}
-<h1>{{title}}</h1>
-<div>
- {% for booking in bookings %}
-        <h5><strong>Booking №: {{booking.id}}</strong></h5>
-        <dd><strong>Service: </strong>{{booking.service.name}}</dd>
-        <dd><strong>Booking for: </strong>{{booking.booking_from}}</dd>
-        <dd><strong>Specialist: </strong>{{booking.specialist.name}}</dd>
-        <dd><strong>Customer: </strong>{{booking.customer}}</dd>
-        <dd><strong>Phone: </strong>{{booking.phone}}</dd>
-        <dd>-------------------------------------------------------</dd>
-    <br>
- {% endfor %}
+<link rel="stylesheet" href="{% static 'css/admin-style.css' %}">
+
+<div id="title">
+    <h1>{{title}}</h1>
 </div>
+
+<div id="booking">
+  {% for booking in page_obj %}
+    <h6><strong>Booking №: {{booking.id}} ({{booking.booking_from}})</strong></h6>
+        <dd><strong>Service: </strong>{{booking.service.name}},
+            <strong>Specialist: </strong>{{booking.specialist.name}}</dd>
+        <dd><strong>Customer: </strong>{{booking.customer.username}}
+        <strong>, phone: </strong>{{booking.phone}}</dd>
+    <span>---------------------------------------------------------</span>
+  {% endfor %}
+</div>
+
+<div class="pagination justify-content-center">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo;First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"> Next </a>
+            <a href="?page={{ page_obj.paginator.num_pages }}"> Last&raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+
 {% endblock %}
