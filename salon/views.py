@@ -6,9 +6,9 @@ from django.urls import reverse
 
 from user.models import Profile
 from django.shortcuts import render, redirect
-from salon.models import Service, Specialist, Booking, WorkSchedule
+from salon.models import Service, Specialist, Booking
 from datetime import datetime, timedelta
-from salon.utils import calc_possible_time_in_day
+from .booking_researcher import get_possible_booking_time
 from user.utils import simple_user_required
 
 TIMEDELTA = timedelta(days=7)
@@ -39,11 +39,17 @@ def services(request):
 def one_service(request, service_name, specialist_id=None):
     service_details = {}
     available_specialists = {}
+    err_time = request.GET.get('err')
+
+    if err_time:
+        message = f'Sorry, but time of {err_time} is not more available. ' \
+                  f'Please choose the other available time'
+    else:
+        message = None
 
     try:
-        service_details = Service.objects.filter(name=service_name).first()
+        service_details = Service.objects.get(name=service_name)
         service_id = service_details.id
-        service_duration = service_details.duration
 
         if not specialist_id:
             available_specialists = \
@@ -59,31 +65,15 @@ def one_service(request, service_name, specialist_id=None):
 
         for specialist in available_specialists:
             specialist_id = specialist['id']
-            available_booking = []
-            work_day = WorkSchedule.objects.filter(specialist_id=specialist['id'],
-                                                   end_time__range=(CURRENT_TIME, REQUIRED_PERIOD)
-                                                   ).values('begin_time', 'end_time').order_by('begin_time')
-
-            for period in work_day:
-                booked_time_list = []
-                booked_time = Booking.objects.filter(specialist_id=specialist_id,
-                                                     booking_to__range=(period['begin_time'], period['end_time'])
-                                                     ).values('booking_from', 'booking_to').order_by('booking_from')
-
-                for busy in booked_time:
-                    booked_time_list.append([busy['booking_from'], busy['booking_to']])
-
-                free_time = calc_possible_time_in_day(serv_duration=service_duration,
-                                                      start_time=period['begin_time'],
-                                                      end_time=period['end_time'],
-                                                      booked_time=booked_time_list)
-                available_booking.extend(free_time)
+            available_booking = get_possible_booking_time(specialist_id, service_id, REQUIRED_PERIOD)
             specialist.update({'available_booking': available_booking})
+
     except Exception as err:
         print(f'An error occurred in "One_service" function error:\n{err}')
 
     return render(request, 'salon/service.html', {'service_details': service_details,
-                                                  'specialists': available_specialists})
+                                                  'specialists': available_specialists,
+                                                  'message': message})
 
 
 @simple_user_required
@@ -103,7 +93,6 @@ def specialists(request):
 def one_specialist(request, specialist_id):
     specialist = {}
     available_services = []
-
     try:
         specialist = Specialist.objects.filter(status=2,
                                                id=specialist_id
@@ -120,6 +109,8 @@ def one_specialist(request, specialist_id):
 @login_required(login_url='/user/login')
 @simple_user_required
 def make_booking(request, service_name, specialist_id):
+    message = None
+
     if request.method == 'POST':
         comment = request.POST['comment']
         booking_from = request.POST['booking_time']
@@ -128,6 +119,14 @@ def make_booking(request, service_name, specialist_id):
             service = Service.objects.filter(name=service_name).get()
             user_profile = Profile.objects.filter(user_id=request.user.pk).get()
             user = User.objects.filter(id=request.user.pk).get()
+
+            possible_slot_list = get_possible_booking_time(specialist_id, service.id, REQUIRED_PERIOD)
+            if booking_from not in possible_slot_list:
+                err_time = booking_from
+                # message = f'Sorry, but time of {booking_from} is not more available. ' \
+                #           f'Please choose the other available time'
+                return redirect(f'/service/{service_name}/{specialist_id}/?err={err_time}')
+                # return redirect('one_service', service_name, specialist_id, message)
 
             service_duration = service.duration
             booking_to = datetime.strptime(booking_from, '%Y-%m-%d %H:%M') + timedelta(minutes=service_duration)
@@ -144,8 +143,9 @@ def make_booking(request, service_name, specialist_id):
             return HttpResponseRedirect(reverse('booking_success', args=[user.id]))
 
         except Exception as err:
+            message = 'An error occurred during you booking. Please check booking info and try again'
             print(f'Booking saving error:\n{err}')
-    return redirect('one_service', service_name, specialist_id)
+    return redirect('one_service', service_name, specialist_id, message)
 
 
 @login_required(login_url='/user/login')

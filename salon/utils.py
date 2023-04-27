@@ -1,6 +1,6 @@
 from datetime import timedelta, datetime
 
-possible_booking_time = []
+# possible_booking_time = []
 
 
 def calc_possible_time_in_day(serv_duration, start_time, end_time, booked_time):

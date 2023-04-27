@@ -5,7 +5,11 @@
 {% endblock %}
 {% block content %}
 <h1>{{title}}</h1>
-
+{% if message %}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{% endif %}
 <p style="font-size: 20px"><i>Service name</i>: {{service_details.name}}</p>
 <p style="font-size: 18px"><i>Duration</i>: {{service_details.duration}} min</p>
 <p style="font-size: 18px"><i>Price</i>: {{service_details.price}} UAH</p>

@@ -5,7 +5,7 @@
 <h1>Our specialists</h1>
 
 {% for specialist in specialists %}
-    <p style="font-size: 30px"><a href="{{specialist.id}}/">{{specialist.name}}</a></p>
+    <p style="font-size: 30px"><a href="/specialist/{{specialist.id}}/">{{specialist.name}}</a></p>
 {% endfor %}
 
 {% endblock %}
